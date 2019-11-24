@@ -23,3 +23,6 @@ RoxygenNote: 6.1.1
 Roxygen: list(markdown = TRUE)
 URL: https://github.com/paleolimbot/edwards97
 BugReports: https://github.com/paleolimbot/edwards97/issues
+Imports: 
+    rlang,
+    tibble

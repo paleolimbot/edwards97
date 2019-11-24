@@ -68,12 +68,12 @@ edwards_data_raw <- jartests_clean %>%
 
 edwards_jar_tests <- tibble::tibble(
   coagulant = edwards_data_raw$coagulant,
-  dose_mmol_L = edwards_data_raw$coag_dose_mmol_L,
-  DOC_initial_mg_L = edwards_data_raw$raw_DOC,
-  TOC_initial_mg_L = edwards_data_raw$raw_TOC,
+  dose = edwards_data_raw$coag_dose_mmol_L,
+  DOC = edwards_data_raw$raw_DOC,
+  TOC = edwards_data_raw$raw_TOC,
   pH  = edwards_data_raw$coag_pH,
-  UV254_per_cm = edwards_data_raw$raw_UV254,
-  TOC_final_mg_L = edwards_data_raw$treat_TOC
+  UV254 = edwards_data_raw$raw_UV254,
+  TOC_final = edwards_data_raw$treat_TOC
 )
 
 usethis::use_data(edwards_jar_tests, overwrite = TRUE)
