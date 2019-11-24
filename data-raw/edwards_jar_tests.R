@@ -62,9 +62,18 @@ jartests_clean <- jartest_raw %>%
 
 # ---- subset and export ----
 
-edwards_jar_tests <- jartests_clean %>%
+edwards_data_raw <- jartests_clean %>%
   select(coagulant, coag_dose_mmol_L, coag_pH, starts_with("treat"), starts_with("raw")) %>%
   filter(coagulant %in% c("Alum", "Ferric chloride", "Ferric sulfate"))
 
-usethis::use_data(edwards_jar_tests, overwrite = TRUE)
+edwards_jar_tests <- tibble::tibble(
+  coagulant = edwards_data_raw$coagulant,
+  dose_mmol_L = edwards_data_raw$coag_dose_mmol_L,
+  DOC_initial_mg_L = edwards_data_raw$raw_DOC,
+  TOC_initial_mg_L = edwards_data_raw$raw_TOC,
+  pH  = edwards_data_raw$coag_pH,
+  UV254_per_cm = edwards_data_raw$raw_UV254,
+  TOC_final_mg_L = edwards_data_raw$treat_TOC
+)
 
+usethis::use_data(edwards_jar_tests, overwrite = TRUE)
