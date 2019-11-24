@@ -1,0 +1,23 @@
+Package: edwards97
+Title: Implementation of a Langmuir Semiempirical Coagulation Model
+Version: 0.0.0.9000
+Authors@R: c(
+    person("Dewey", "Dunnington",
+           email = "dewey@fishandwhistle.net", 
+           role = c("aut", "cre"), 
+           comment = c(ORCID = "0000-0002-9415-4582")
+    ),
+    person("William", "Raseman", role = "aut"),
+    person("Benjamin", "Trueman", role = "aut", comment = c(ORCID = "0000-0002-1539-3092"))
+  )
+Maintainer: Dewey Dunnington <dewey@fishandwhistle.net>
+Description: Implements the Edwards (1997) <doi:10.1002/j.1551-8833.1997.tb08229.x>
+    Langmuir-based semiempirical coagulation model, which predicts the concentration
+    of organic carbon remaining in water after treatment with an Al- or Fe-based
+    coagulant. Data and methods are provided to optimise empirical coefficients.
+Depends: R (>= 3.6.0)
+License: GPL-3
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 6.1.1
+Roxygen: list(markdown = TRUE)
