@@ -60,6 +60,9 @@ coagulate_base <- function(DOC, dose, pH, UV254, K1, K2, x1, x2, x3, b, root = -
   # allows root to be theoretically continuous for the purposes of optim()
   root <- sign(root)
 
+  # dose values of 0 violate the original equation whose solution is below
+  dose[dose == 0] <- NA_real_
+
   SUVA <- 100 * UV254 / DOC
   S <- 1 - SUVA * K1 - K2
   a <- pH^3 * x3 + pH^2 * x2 + pH * x1
@@ -68,5 +71,6 @@ coagulate_base <- function(DOC, dose, pH, UV254, K1, K2, x1, x2, x3, b, root = -
   sqrt_term <- sqrt((DOC * S * b - 1 - dose * a * b)^2 - 4 * (-b * DOC * S))
   denominator <- 2 * (-b)
 
-  (first_term + root * sqrt_term) / denominator
+  DOC_final <- (first_term + root * sqrt_term) / denominator
+  DOC_final
 }
