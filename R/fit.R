@@ -109,14 +109,97 @@ tidy.edwards_fit <- function(x, ...) {
 #' @rdname fit_edwards_optim
 #' @export
 glance.edwards_fit <- function(x, ...) {
-  known <- x$data$DOC_final
-  predicted <- predict(x, ...)
+  tibble::tibble(
+    fit_method = class(x)[1],
+    !!!evaluate_edwards_fit(x$data$DOC_final, predict(x, ...))
+  )
+}
+
+#' @rdname fit_edwards_optim
+#' @export
+print.edwards_fit <- function(x, ...) {
+  coefs <- stats::coef(x)
+  coefs_format <- unlist(lapply(coefs, format, digits = 3, trim = TRUE))
+  coef_text <- paste0(
+    cli::col_blue(names(coefs_format)),
+    ' = ',
+    cli::col_red(coefs_format) ,
+    collapse = ', '
+  )
+
+  glanced <- broom::glance(x)[c("r.squared", "RMSE", "df.residual")]
+  names(glanced) <- c("r\u00B2", "RMSE", "degrees of freedom")
+  glanced_format <- unlist(lapply(glanced, format, digits = 3, trim = TRUE))
+  glanced_units <- c("", " mg/L", "")
+  glanced_text <- paste0(
+    cli::col_blue(names(glanced_format)),
+    ' = ',
+    cli::col_red(glanced_format),
+    cli::col_grey(glanced_units),
+    collapse = ', '
+  )
+
+  input_data <- x$data[c("DOC", "dose", "pH", "UV254", "DOC_final")]
+
+
+  cli::cat_line(
+    glue::glue(
+      "
+<{class(x)[1]}>
+  Coefficients:
+    {coef_text}
+  Performance:
+    {glanced_text}
+  Input data:
+      "
+    )
+  )
+
+  print(summary(input_data))
+  invisible(x)
+}
+
+#' @importFrom graphics plot
+#' @rdname fit_edwards_optim
+#' @export
+plot.edwards_fit <- function(x, ...) {
+  input_data <- x$data[c("DOC", "dose", "pH", "UV254", "DOC_final")]
+  input_data$DOC_final_predicted <- stats::predict(x)
+  input_data$residual <- stats::residuals(x)
+
+  limits <- range(c(input_data$DOC_final, input_data$DOC_final_predicted), na.rm = TRUE)
+  max_residual <- max(abs(input_data$residual), na.rm = TRUE)
+  residual_limits <- c(-max_residual, max_residual)
+
+  withr::with_par(list(mfrow = c(1, 2)), {
+    graphics::plot(
+      input_data$DOC_final,
+      input_data$DOC_final_predicted,
+      xlim = limits, ylim = limits,
+      xlab = "Final DOC (measured)",
+      ylab = "Final DOC (predicted)",
+      main = NULL
+    )
+    graphics::abline(0, 1, lty = 2, col = grDevices::rgb(0, 0, 0, alpha = 0.7))
+
+    graphics::hist(
+      input_data$residual,
+      xlim = residual_limits,
+      main = "Histogram of residuals",
+      xlab = NULL
+    )
+  })
+
+  invisible(x)
+}
+
+evaluate_edwards_fit <- function(known, predicted) {
   residuals <- predicted - known
   n_obs <- sum(is.finite(residuals))
 
   tibble::tibble(
-    fit_method = class(x)[1],
     r.squared = stats::cor(predicted, known, method = "pearson", use = "pairwise.complete.obs"),
+    RMSE = sqrt(mean(residuals^2, na.rm = TRUE)),
     # number of coefs = 7
     df.residual = n_obs - 7,
     # deviance is the sum of the squared residuals

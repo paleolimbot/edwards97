@@ -7,11 +7,14 @@ test_that("edwards_fit works", {
   fit <- fit_edwards_optim(fit_data_alum, edwards_coefs("alum"))
   fit_small <- fit_edwards_optim(fit_data_small, edwards_coefs("alum"))
 
-  tidy_fit <- broom::tidy(fit)
-  expect_named(tidy_fit, c("term", "estimate"))
-
-  glance_fit <- broom::glance(fit)
-  expect_named(glance_fit, c("fit_method", "r.squared", "df.residual", "deviance"))
+  # check fit methods
+  expect_named(coef(fit), c("K1", "K2", "x1", "x2", "x3", "b", "root"))
+  expect_is(coef(fit), "numeric")
+  expect_identical(fitted(fit), predict(fit))
+  expect_named(broom::tidy(fit), c("term", "estimate"))
+  expect_named(broom::glance(fit), c("fit_method", "r.squared", "RMSE", "df.residual", "deviance"))
+  expect_output(expect_identical(print(fit), fit), "<edwards_fit_optim>")
+  expect_identical(plot(fit), fit)
 
   # expect that the local fit is better than the global fit fot the small data
   fit_small_resid <- residuals(fit_small)

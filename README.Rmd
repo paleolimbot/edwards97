@@ -45,7 +45,8 @@ This is a basic example which shows you how to solve a common problem:
 library(edwards97)
 
 # `edwards_jar_tests` is included
-fit_data_alum <- edwards_jar_tests[edwards_jar_tests$coagulant == "Alum", ]
+fit_data_alum <- edwards_jar_tests %>% 
+  filter(coagulant == "Alum")
 
 # Use TOC measurements as estimates of final DOC
 fit_data_alum$DOC_final <- fit_data_alum$TOC_final
@@ -53,13 +54,10 @@ fit_data_alum$DOC_final <- fit_data_alum$TOC_final
 # optimise coefficients for this dataset
 fit <- fit_edwards_optim(fit_data_alum, initial_coefs = edwards_coefs("alum"))
 
-# add predictions to the original data frame
-fit_data_alum$DOC_final_predict <- predict(fit)
+# view fit results
+print(fit)
+plot(fit)
 
-# plot predictions
-ggplot(fit_data_alum) +
-  geom_abline(slope = 1, intercept = 0, lty = 2, alpha = 0.7) + 
-  geom_point(aes(DOC_final, DOC_final_predict))
 ```
 
 ## References

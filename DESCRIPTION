@@ -26,7 +26,10 @@ BugReports: https://github.com/paleolimbot/edwards97/issues
 Imports: 
     rlang,
     tibble,
-    broom
+    broom,
+    cli,
+    withr,
+    glue
 Suggests: 
     testthat (>= 2.1.0),
     covr

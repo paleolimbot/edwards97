@@ -8,6 +8,8 @@
 \alias{residuals.edwards_fit}
 \alias{tidy.edwards_fit}
 \alias{glance.edwards_fit}
+\alias{print.edwards_fit}
+\alias{plot.edwards_fit}
 \title{Fit Empirical Coefficients}
 \usage{
 fit_edwards_optim(data, initial_coefs = edwards_coefs(),
@@ -24,6 +26,10 @@ fit_edwards_optim(data, initial_coefs = edwards_coefs(),
 \method{tidy}{edwards_fit}(x, ...)
 
 \method{glance}{edwards_fit}(x, ...)
+
+\method{print}{edwards_fit}(x, ...)
+
+\method{plot}{edwards_fit}(x, ...)
 }
 \arguments{
 \item{data}{A data frame with columns
