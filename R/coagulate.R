@@ -6,9 +6,8 @@
 #' derived from physical relationships, primarily the process of
 #' Langmuir sorptive removal (Tipping 1981, Jekyl 1986).
 #'
-#' @param coefs The output of [edwards_coefs()] or a similar data frame
-#'   containing columns `K1`, `K2`, `x1`, `x2`, `x3`, `b` and `root`. Must contain
-#'   one row or the same number of rows as `data`.
+#' @param coefs The output of [edwards_coefs()] or a similar named vector
+#'   containing elements `K1`, `K2`, `x1`, `x2`, `x3`, `b` and `root`.
 #' @param data A data frame containing columns `DOC`, `dose`, `pH`, and `UV254`.
 #' @param DOC The initial DOC concentration (mg/L).
 #' @param dose The coagulant dose (mmol/L).
@@ -47,13 +46,11 @@
 #' plot(TOC_final_model ~ TOC_final, data = alum_jar_tests)
 #'
 coagulate <- function(data, coefs = edwards_coefs()) {
-  # using tibble() here enforces the 1-row or same-row numbers
-  input <- tibble::tibble(
+  rlang::exec(
+    coagulate_base,
     !!!data[c("DOC", "dose", "pH", "UV254")],
-    !!!coefs[c("K1", "K2", "x1", "x2", "x3", "b", "root")]
+    !!!as.list(coefs[c("K1", "K2", "x1", "x2", "x3", "b", "root")])
   )
-
-  rlang::exec(coagulate_base, !!!input)
 }
 
 #' @rdname coagulate

@@ -1,9 +1,14 @@
 
 #' Coagulation coefficients
 #'
-#' @param type Currently only "alum" is implemented.
+#' These are coefficients intended for general use. Use
+#' [fit_edwards_optim()] to optimise these coefficients
+#' for a specific source water.
 #'
-#' @return A data frame of coefficients that
+#' @param type Currently only "alum" is allowed.
+#'
+#' @return A named vector of empirical coefficients to be used in
+#'   [coagulate()].
 #' @export
 #'
 #' @examples
@@ -14,12 +19,12 @@ edwards_coefs <- function(type = c("alum", "NA")) {
 
   switch(
     type,
-    "alum" = tibble::tibble(
+    "alum" = c(
       K1 = -0.054, K2 = 0.54,
       x1 = 383, x2 = -98.6, x3 = 6.42,
       b = 0.107, root = -1
     ),
-    "NA" = tibble::tibble(
+    "NA" = c(
       K1 = NA_real_, K2 = NA_real_,
       x1 = NA_real_, x2 = NA_real_, x3 = NA_real_,
       b = NA_real_, root = NA_real_

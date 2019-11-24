@@ -7,13 +7,16 @@
 edwards_coefs(type = c("alum", "NA"))
 }
 \arguments{
-\item{type}{Currently only "alum" is implemented.}
+\item{type}{Currently only "alum" is allowed.}
 }
 \value{
-A data frame of coefficients that
+A named vector of empirical coefficients to be used in
+\code{\link[=coagulate]{coagulate()}}.
 }
 \description{
-Coagulation coefficients
+These are coefficients intended for general use. Use
+\code{\link[=fit_edwards_optim]{fit_edwards_optim()}} to optimise these coefficients
+for a specific source water.
 }
 \examples{
 edwards_coefs("alum")

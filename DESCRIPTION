@@ -25,4 +25,7 @@ URL: https://github.com/paleolimbot/edwards97
 BugReports: https://github.com/paleolimbot/edwards97/issues
 Imports: 
     rlang,
-    tibble
+    tibble,
+    broom
+Suggests: 
+    testthat (>= 2.1.0)

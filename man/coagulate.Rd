@@ -12,9 +12,8 @@ coagulate_base(DOC, dose, pH, UV254, K1, K2, x1, x2, x3, b, root = -1)
 \arguments{
 \item{data}{A data frame containing columns \code{DOC}, \code{dose}, \code{pH}, and \code{UV254}.}
 
-\item{coefs}{The output of \code{\link[=edwards_coefs]{edwards_coefs()}} or a similar data frame
-containing columns \code{K1}, \code{K2}, \code{x1}, \code{x2}, \code{x3}, \code{b} and \code{root}. Must contain
-one row or the same number of rows as \code{data}.}
+\item{coefs}{The output of \code{\link[=edwards_coefs]{edwards_coefs()}} or a similar named vector
+containing elements \code{K1}, \code{K2}, \code{x1}, \code{x2}, \code{x3}, \code{b} and \code{root}.}
 
 \item{DOC}{The initial DOC concentration (mg/L).}
 
