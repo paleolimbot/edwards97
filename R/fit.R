@@ -69,7 +69,7 @@ fit_edwards_optim <- function(data, initial_coefs = edwards_coefs(), optim_param
 
 #' @rdname fit_edwards_optim
 #' @export
-fit_edwards_coefs <- function(coefs = edwards_coefs(), data = edwards_data("NA")) {
+fit_edwards_coefs <- function(coefs, data = edwards_data("empty")) {
   data_label <- rlang::quo_label(rlang::enquo(data))
   coefs_label <- rlang::quo_label(rlang::enquo(coefs))
 
@@ -168,7 +168,20 @@ print.edwards_fit_base <- function(x, ...) {
     collapse = ', '
   )
 
-  input_data <- x$data[c("DOC", "dose", "pH", "UV254", "DOC_final")]
+  summary_data <- x$data[c("DOC", "dose", "pH", "UV254", "DOC_final")]
+  summary_data$`Predictions` <- predict(x)
+  summary_data$`Langmuir a` <- coag_langmuir_a(
+    pH = summary_data$pH,
+    x3 = coefs["x3"],
+    x2 = coefs["x2"],
+    x1 = coefs["x1"]
+  )
+  summary_data$`Sorbable DOC (%)` <- coag_sorbable_DOC(
+    DOC = summary_data$DOC,
+    UV254 = summary_data$UV254,
+    K1 = coefs["K1"],
+    K2 = coefs["K2"]
+  ) / summary_data$DOC * 100
 
   cli::cat_line(
     glue::glue(
@@ -184,7 +197,7 @@ print.edwards_fit_base <- function(x, ...) {
     )
   )
 
-  print(summary(input_data))
+  print(summary(summary_data))
   invisible(x)
 }
 
@@ -227,14 +240,29 @@ plot.edwards_fit_base <- function(x, ...) {
       xlab = "Residual (mg/L)"
     )
 
+    langmuir_func <- function(pH) coag_langmuir_a(pH, x3 = coefs["x3"], x2 = coefs["x2"], x1 = coefs["x1"])
     graphics::plot(
-      function(pH) coefs["x3"] * pH^3 + coefs["x2"] * pH^2 + coefs["x1"] * pH,
+      langmuir_func,
       xlim = c(4, 8),
       ylim = if (is.na(coefs["x3"] || is.na(coefs["x2"] || is.na(coefs["x1"])))) c(0, 1) else NULL,
-      main = "Langmuir coefficient",
+      main = "Langmuir a",
       xlab = "pH", ylab = "a (mg DOC/mmol dose)"
     )
+    graphics::points(
+      x = input_data$pH,
+      y = langmuir_func(input_data$pH)
+    )
 
+    graphics::plot(
+      coag_SUVA(input_data$DOC, input_data$UV254),
+      coag_sorbable_DOC(input_data$DOC, input_data$UV254, K1 = coefs["K1"], K2 = coefs["K2"]) /
+        input_data$DOC * 100,
+      main = "Sorbable DOC",
+      ylab = "Sorbable DOC (%)",
+      xlab = "SUVA",
+      xlim = if(nrow(input_data) == 0) c(0, 1),
+      ylim = if(nrow(input_data) == 0) c(0, 1),
+    )
   })
 
   invisible(x)

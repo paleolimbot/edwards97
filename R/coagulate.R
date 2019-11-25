@@ -45,7 +45,7 @@
 #' alum_jar_tests$DOC_final_model <- coagulate(alum_jar_tests, edwards_coefs("Al"))
 #' plot(DOC_final_model ~ DOC_final, data = alum_jar_tests)
 #'
-coagulate <- function(data, coefs = edwards_coefs()) {
+coagulate <- function(data, coefs) {
   rlang::exec(
     coagulate_base,
     !!!data[c("DOC", "dose", "pH", "UV254")],
@@ -73,4 +73,18 @@ coagulate_base <- function(DOC, dose, pH, UV254, K1, K2, x1, x2, x3, b, root = -
 
   DOC_final <- (first_term + root * sqrt_term) / denominator
   DOC_final
+}
+
+coag_sorbable_DOC <- function(DOC, UV254, K1, K2) {
+  SUVA <- 100 * UV254 / DOC
+  fraction_non_sorbable <- K1 * SUVA + K2
+  (1 - fraction_non_sorbable) * DOC
+}
+
+coag_langmuir_a <- function(pH, x3, x2, x1) {
+  pH^3 * x3 + pH^2 * x2 + pH * x1
+}
+
+coag_SUVA <- function(DOC, UV254) {
+  100 * UV254 / DOC
 }

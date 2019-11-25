@@ -1,6 +1,6 @@
 
 test_that("edwards_coefs works for all types", {
-  for (type in c("General-Low DOC", "Fe", "Al", "General-Fe", "General-Al", "NA")) {
+  for (type in edwards_coef_types()) {
     expect_is(edwards_coefs(!!type), "numeric")
     expect_identical(
       names(edwards_coefs(!!type)),
@@ -15,7 +15,7 @@ test_that("edwards_coefs works for all types", {
 })
 
 test_that("edwards fits produce reasonable predictions", {
-  for (type in c("General-Low DOC", "Fe", "Al", "General-Fe", "General-Al", "NA")) {
+  for (type in edwards_coef_types()) {
     expect_is(plot(fit_edwards(type)), "edwards_fit")
   }
 })

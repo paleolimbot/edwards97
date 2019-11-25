@@ -17,7 +17,7 @@
 fit_edwards_optim(data, initial_coefs = edwards_coefs(),
   optim_params = list())
 
-fit_edwards_coefs(coefs = edwards_coefs(), data = edwards_data("NA"))
+fit_edwards_coefs(coefs, data = edwards_data("empty"))
 
 \method{coef}{edwards_fit_optim}(object, ...)
 

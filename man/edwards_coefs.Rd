@@ -6,17 +6,14 @@
 \alias{fit_edwards}
 \title{Coagulation coefficients}
 \usage{
-edwards_coefs(type = c("General-Low DOC", "Fe", "Al", "General-Fe",
-  "General-Al", "NA"))
+edwards_coefs(type)
 
-edwards_data(type = c("General-Low DOC", "Fe", "Al", "General-Fe",
-  "General-Al", "NA"))
+edwards_data(type)
 
-fit_edwards(type = c("General-Low DOC", "Fe", "Al", "General-Fe",
-  "General-Al", "NA"))
+fit_edwards(type)
 }
 \arguments{
-\item{type}{One of "General-Low DOC", "Fe", "Al", "General-Fe", "General-Al", or "NA".}
+\item{type}{One of "Low DOC", "Fe", "Al", "General-Fe", "General-Al", or "empty".}
 }
 \value{
 A named vector of empirical coefficients to be used in
@@ -28,7 +25,7 @@ These are coefficients intended for general use. Use
 for a specific source water.
 }
 \examples{
-edwards_coefs()
+edwards_coefs("Low DOC")
 
 }
 \references{

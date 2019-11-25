@@ -5,7 +5,7 @@
 #' [fit_edwards_optim()] to optimise these coefficients
 #' for a specific source water.
 #'
-#' @param type One of "General-Low DOC", "Fe", "Al", "General-Fe", "General-Al", or "NA".
+#' @param type One of "Low DOC", "Fe", "Al", "General-Fe", "General-Al", or "empty".
 #'
 #' @return A named vector of empirical coefficients to be used in
 #'   [coagulate()].
@@ -17,10 +17,10 @@
 #' https://doi.org/10.1002/j.1551-8833.1997.tb08229.x
 #'
 #' @examples
-#' edwards_coefs()
+#' edwards_coefs("Low DOC")
 #'
-edwards_coefs <- function(type = c("General-Low DOC", "Fe", "Al", "General-Fe", "General-Al", "NA")) {
-  type <- match.arg(type)
+edwards_coefs <- function(type) {
+  type <- match.arg(type, choices = edwards_coef_types())
 
   switch(
     type,
@@ -44,7 +44,7 @@ edwards_coefs <- function(type = c("General-Low DOC", "Fe", "Al", "General-Fe", 
       K1 = -0.054, K2 = 0.54,
       b = 0.145, root = -1
     ),
-    "General-Low DOC" = c(
+    "Low DOC" = c(
       x3 = 6.44, x2 = -99.2, x1 = 387,
       K1 = -0.053, K2 = 0.54,
       b = 0.107, root = -1
@@ -60,8 +60,8 @@ edwards_coefs <- function(type = c("General-Low DOC", "Fe", "Al", "General-Fe", 
 
 #' @rdname edwards_coefs
 #' @export
-edwards_data <- function(type = c("General-Low DOC", "Fe", "Al", "General-Fe", "General-Al", "NA")) {
-  type <- match.arg(type)
+edwards_data <- function(type) {
+  type <- match.arg(type, choices = edwards_coef_types())
 
   # common data base: TOC approximates DOC and removing observations where
   # - outside 5-8 for alum
@@ -86,7 +86,7 @@ edwards_data <- function(type = c("General-Low DOC", "Fe", "Al", "General-Fe", "
     "Fe" = data_base[grepl("^Ferric", data_base$coagulant), ],
     "General-Al" = ,
     "Al" = data_base[data_base$coagulant == "Alum", ],
-    "General-Low DOC" = data_base[data_base$DOC <= 10, ],
+    "Low DOC" = data_base[data_base$DOC <= 10, ],
     # default: empty data
     data_base[numeric(0), ]
   )
@@ -94,7 +94,7 @@ edwards_data <- function(type = c("General-Low DOC", "Fe", "Al", "General-Fe", "
 
 #' @rdname edwards_coefs
 #' @export
-fit_edwards <- function(type = c("General-Low DOC", "Fe", "Al", "General-Fe", "General-Al", "NA")) {
+fit_edwards <- function(type) {
   fit <- rlang::eval_tidy(
     rlang::quo(
       fit_edwards_coefs(data = edwards_data(!!type), coefs = edwards_coefs(!!type))
@@ -104,4 +104,8 @@ fit_edwards <- function(type = c("General-Low DOC", "Fe", "Al", "General-Fe", "G
   fit$type <- type
   class(fit) <- c("edwards_fit", class(fit))
   fit
+}
+
+edwards_coef_types <- function() {
+  c("Low DOC", "Fe", "Al", "General-Fe", "General-Al", "empty")
 }

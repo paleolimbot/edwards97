@@ -5,7 +5,7 @@
 \alias{coagulate_base}
 \title{Low-level langmuir coagulation calculations}
 \usage{
-coagulate(data, coefs = edwards_coefs())
+coagulate(data, coefs)
 
 coagulate_base(DOC, dose, pH, UV254, K1, K2, x1, x2, x3, b, root = -1)
 }
