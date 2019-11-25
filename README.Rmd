@@ -44,15 +44,10 @@ This is a basic example which shows you how to solve a common problem:
 ```{r example, warning=FALSE}
 library(edwards97)
 
-# `edwards_jar_tests` is included
-fit_data_alum <- edwards_jar_tests %>% 
-  filter(coagulant == "Alum")
-
-# Use TOC measurements as estimates of final DOC
-fit_data_alum$DOC_final <- fit_data_alum$TOC_final
+fit_data_alum <- edwards_data("Al")
 
 # optimise coefficients for this dataset
-fit <- fit_edwards_optim(fit_data_alum, initial_coefs = edwards_coefs("alum"))
+fit <- fit_edwards_optim(fit_data_alum, initial_coefs = edwards_coefs("Al"))
 
 # view fit results
 print(fit)

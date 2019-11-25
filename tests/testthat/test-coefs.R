@@ -1,9 +1,21 @@
 
-test_that("edwards_coefs works", {
-  expect_is(edwards_coefs(), "numeric")
-  expect_identical(
-    names(edwards_coefs()),
-    c("K1", "K2", "x1", "x2", "x3", "b", "root")
-  )
+test_that("edwards_coefs works for all types", {
+  for (type in c("General-Low DOC", "Fe", "Al", "General-Fe", "General-Al", "NA")) {
+    expect_is(edwards_coefs(!!type), "numeric")
+    expect_identical(
+      names(edwards_coefs(!!type)),
+      c("x3", "x2", "x1", "K1", "K2", "b", "root")
+    )
+    expect_is(edwards_data(!!type), "data.frame")
+    expect_is(fit_edwards(!!type), "edwards_fit")
+    expect_identical(nrow(edwards_data(!!type)), length(residuals(fit_edwards(!!type))))
+  }
+
   expect_error(edwards_coefs(type = "not a type"), "should be one of")
+})
+
+test_that("edwards fits produce reasonable predictions", {
+  for (type in c("General-Low DOC", "Fe", "Al", "General-Fe", "General-Al", "NA")) {
+    expect_is(plot(fit_edwards(type)), "edwards_fit")
+  }
 })

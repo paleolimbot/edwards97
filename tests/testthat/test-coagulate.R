@@ -1,5 +1,5 @@
 
-test_that("quadratic solution used it coagulate() matches equations in Edwards (1997)", {
+test_that("quadratic solution used in coagulate() satisfies equations in Edwards (1997)", {
 
   # equation 1
   fraction_non_sorbable_DOC <- function(SUVA, K1, K2) {
@@ -37,7 +37,7 @@ test_that("quadratic solution used it coagulate() matches equations in Edwards (
     ((x3 * pH^3 + x2 * pH^2 + x1 * pH) * b * DOC_final) / (1 + b * DOC_final)
   }
 
-  coefs <- edwards_coefs("alum")
+  coefs <- edwards_coefs("Al")
 
   alum_jar_tests <- edwards_jar_tests[edwards_jar_tests$coagulant == "Alum", ]
   alum_jar_tests <- edwards_jar_tests[edwards_jar_tests$dose > 0, ]

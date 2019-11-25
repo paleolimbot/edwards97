@@ -41,9 +41,9 @@
 #' @export
 #'
 #' @examples
-#' alum_jar_tests <- edwards_jar_tests[edwards_jar_tests$coagulant == "Alum", ]
-#' alum_jar_tests$TOC_final_model <- coagulate(alum_jar_tests, edwards_coefs("alum"))
-#' plot(TOC_final_model ~ TOC_final, data = alum_jar_tests)
+#' alum_jar_tests <- edwards_data("Al")
+#' alum_jar_tests$DOC_final_model <- coagulate(alum_jar_tests, edwards_coefs("Al"))
+#' plot(DOC_final_model ~ DOC_final, data = alum_jar_tests)
 #'
 coagulate <- function(data, coefs = edwards_coefs()) {
   rlang::exec(

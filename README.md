@@ -39,40 +39,36 @@ This is a basic example which shows you how to solve a common problem:
 ``` r
 library(edwards97)
 
-# `edwards_jar_tests` is included
-fit_data_alum <- edwards_jar_tests %>% 
-  filter(coagulant == "Alum")
-
-# Use TOC measurements as estimates of final DOC
-fit_data_alum$DOC_final <- fit_data_alum$TOC_final
+fit_data_alum <- edwards_data("Al")
 
 # optimise coefficients for this dataset
-fit <- fit_edwards_optim(fit_data_alum, initial_coefs = edwards_coefs("alum"))
+fit <- fit_edwards_optim(fit_data_alum, initial_coefs = edwards_coefs("Al"))
 
 # view fit results
 print(fit)
 #> <edwards_fit_optim>
+#>   Fit optimised for `fit_data_alum`
 #>   Coefficients:
-#>     K1 = -0.00524, K2 = -0.188, x1 = 382, x2 = -96.4, x3 = 6.23, b = 0.0343, root = -1
+#>     x3 = 5.21, x2 = -76.7, x1 = 288, K1 = -0.0057, K2 = -0.157, b = 0.0722, root = -1
 #>   Performance:
-#>     r² = 0.961, RMSE = 1.11 mg/L, degrees of freedom = 527
+#>     r² = 0.954, RMSE = 0.948 mg/L, number of finite observations = 500
 #>   Input data:
-#>       DOC              dose               pH            UV254       
-#>  Min.   : 1.800   Min.   :0.00000   Min.   :4.500   Min.   :0.0260  
-#>  1st Qu.: 2.900   1st Qu.:0.06734   1st Qu.:6.072   1st Qu.:0.0810  
-#>  Median : 4.000   Median :0.16835   Median :6.590   Median :0.1200  
-#>  Mean   : 6.595   Mean   :0.21998   Mean   :6.540   Mean   :0.1975  
-#>  3rd Qu.: 8.600   3rd Qu.:0.32338   3rd Qu.:7.018   3rd Qu.:0.2060  
-#>  Max.   :26.500   Max.   :1.51515   Max.   :8.830   Max.   :1.3550  
-#>  NA's   :383                                                        
+#>       DOC             dose              pH            UV254       
+#>  Min.   : 1.80   Min.   :0.0084   Min.   :4.500   Min.   :0.0260  
+#>  1st Qu.: 2.81   1st Qu.:0.1323   1st Qu.:5.808   1st Qu.:0.0810  
+#>  Median : 3.94   Median :0.2290   Median :6.500   Median :0.1060  
+#>  Mean   : 6.36   Mean   :0.2644   Mean   :6.430   Mean   :0.2323  
+#>  3rd Qu.: 6.70   3rd Qu.:0.3543   3rd Qu.:6.955   3rd Qu.:0.2470  
+#>  Max.   :26.50   Max.   :1.5152   Max.   :7.900   Max.   :1.3550  
+#>  NA's   :629     NA's   :629      NA's   :629     NA's   :629     
 #>    DOC_final     
-#>  Min.   : 0.760  
-#>  1st Qu.: 2.070  
-#>  Median : 2.690  
-#>  Mean   : 3.835  
-#>  3rd Qu.: 4.001  
-#>  Max.   :30.500  
-#> 
+#>  Min.   : 1.030  
+#>  1st Qu.: 1.968  
+#>  Median : 2.700  
+#>  Mean   : 3.793  
+#>  3rd Qu.: 4.025  
+#>  Max.   :26.610  
+#>  NA's   :629
 plot(fit)
 ```
 

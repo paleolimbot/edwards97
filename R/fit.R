@@ -12,7 +12,7 @@
 #' @param data A data frame with columns
 #'   `DOC` (mg/L), `dose` (mmol/L), `pH` (pH units), `UV254` (1/cm), and
 #'   `DOC_final` (mg/L). See [coagulate()] for more information.
-#' @param initial_coefs A set of initial coefficients from which to
+#' @param coefs,initial_coefs A set of initial coefficients from which to
 #'   start the optimisation. Most usefully one of the coefficient
 #'   sets returned by [edwards_coefs()].
 #' @param optim_params Additional arguments to be passed to [stats::optim()].
@@ -31,6 +31,8 @@
 #' @export
 #'
 fit_edwards_optim <- function(data, initial_coefs = edwards_coefs(), optim_params = list()) {
+
+  data_label <- rlang::quo_label(rlang::enquo(data))
 
   # need to improve error messages for bad inputs, but this is one way to
   # make it work
@@ -55,12 +57,32 @@ fit_edwards_optim <- function(data, initial_coefs = edwards_coefs(), optim_param
 
   structure(
     list(
+      title = glue::glue("Fit optimised for {data_label}"),
       data = data,
       initial_coefs = initial_coefs,
       optim_params = optim_params,
       fit_optim = fit_optim
     ),
-    class = c("edwards_fit_optim", "edwards_fit")
+    class = c("edwards_fit_optim", "edwards_fit_base")
+  )
+}
+
+#' @rdname fit_edwards_optim
+#' @export
+fit_edwards_coefs <- function(coefs = edwards_coefs(), data = edwards_data("NA")) {
+  data_label <- rlang::quo_label(rlang::enquo(data))
+  coefs_label <- rlang::quo_label(rlang::enquo(coefs))
+
+  structure(
+    list(
+      title = c(
+        glue::glue("Fit with coefs {coefs_label}"),
+        glue::glue("validated using {data_label}")
+      ),
+      data = data,
+      coefs = coefs
+    ),
+    class = c("edwards_fit_coefs", "edwards_fit_base")
   )
 }
 
@@ -73,10 +95,17 @@ coef.edwards_fit_optim <- function(object, ...) {
   coefs
 }
 
+#' @importFrom stats coef
+#' @rdname fit_edwards_optim
+#' @export
+coef.edwards_fit_coefs <- function(object, ...) {
+  object$coefs
+}
+
 #' @importFrom stats predict
 #' @rdname fit_edwards_optim
 #' @export
-predict.edwards_fit <- function(object, newdata = NULL, ...) {
+predict.edwards_fit_base <- function(object, newdata = NULL, ...) {
   if (is.null(newdata)) {
     newdata <- object$data
   }
@@ -87,28 +116,28 @@ predict.edwards_fit <- function(object, newdata = NULL, ...) {
 #' @importFrom stats fitted
 #' @rdname fit_edwards_optim
 #' @export
-fitted.edwards_fit <- function(object, ...) {
+fitted.edwards_fit_base <- function(object, ...) {
   predict(object, ...)
 }
 
 #' @importFrom stats residuals
 #' @rdname fit_edwards_optim
 #' @export
-residuals.edwards_fit <- function(object, ...) {
+residuals.edwards_fit_base <- function(object, ...) {
   predict(object, ...) - object$data$DOC_final
 }
 
 #' @importFrom broom tidy
 #' @rdname fit_edwards_optim
 #' @export
-tidy.edwards_fit <- function(x, ...) {
+tidy.edwards_fit_base <- function(x, ...) {
   tibble::enframe(coef(x), name = "term", value = "estimate")
 }
 
 #' @importFrom broom glance
 #' @rdname fit_edwards_optim
 #' @export
-glance.edwards_fit <- function(x, ...) {
+glance.edwards_fit_base <- function(x, ...) {
   tibble::tibble(
     fit_method = class(x)[1],
     !!!evaluate_edwards_fit(x$data$DOC_final, predict(x, ...))
@@ -117,7 +146,7 @@ glance.edwards_fit <- function(x, ...) {
 
 #' @rdname fit_edwards_optim
 #' @export
-print.edwards_fit <- function(x, ...) {
+print.edwards_fit_base <- function(x, ...) {
   coefs <- stats::coef(x)
   coefs_format <- unlist(lapply(coefs, format, digits = 3, trim = TRUE))
   coef_text <- paste0(
@@ -127,8 +156,8 @@ print.edwards_fit <- function(x, ...) {
     collapse = ', '
   )
 
-  glanced <- broom::glance(x)[c("r.squared", "RMSE", "df.residual")]
-  names(glanced) <- c("r\u00B2", "RMSE", "degrees of freedom")
+  glanced <- broom::glance(x)[c("r.squared", "RMSE", "n.obs")]
+  names(glanced) <- c("r\u00B2", "RMSE", "number of finite observations")
   glanced_format <- unlist(lapply(glanced, format, digits = 3, trim = TRUE))
   glanced_units <- c("", " mg/L", "")
   glanced_text <- paste0(
@@ -141,11 +170,11 @@ print.edwards_fit <- function(x, ...) {
 
   input_data <- x$data[c("DOC", "dose", "pH", "UV254", "DOC_final")]
 
-
   cli::cat_line(
     glue::glue(
       "
 <{class(x)[1]}>
+  {paste(x$title, collapse = ' ')}
   Coefficients:
     {coef_text}
   Performance:
@@ -162,15 +191,21 @@ print.edwards_fit <- function(x, ...) {
 #' @importFrom graphics plot
 #' @rdname fit_edwards_optim
 #' @export
-plot.edwards_fit <- function(x, ...) {
+plot.edwards_fit_base <- function(x, ...) {
   input_data <- x$data[c("DOC", "dose", "pH", "UV254", "DOC_final")]
   input_data$DOC_final_predicted <- stats::predict(x)
   input_data$residual <- stats::residuals(x)
   coefs <- stats::coef(x)
 
-  limits <- range(c(input_data$DOC_final, input_data$DOC_final_predicted), na.rm = TRUE)
-  max_residual <- max(abs(input_data$residual), na.rm = TRUE)
-  residual_limits <- c(-max_residual, max_residual)
+  # empty data is possible from edward_fit_coefs()
+  if (nrow(input_data) > 0) {
+    limits <- range(c(input_data$DOC_final, input_data$DOC_final_predicted), na.rm = TRUE)
+    max_residual <- max(abs(input_data$residual), na.rm = TRUE)
+    residual_limits <- c(-max_residual, max_residual)
+  } else {
+    limits <- c(0, 10)
+    residual_limits <- c(-1, 1)
+  }
 
   withr::with_par(list(mfrow = c(2, 2)), {
     graphics::plot(
@@ -179,23 +214,27 @@ plot.edwards_fit <- function(x, ...) {
       xlim = limits, ylim = limits,
       xlab = "Final DOC (measured)",
       ylab = "Final DOC (predicted)",
-      main = "Predictions"
+      main = NULL
     )
     graphics::abline(0, 1, lty = 2, col = grDevices::rgb(0, 0, 0, alpha = 0.7))
 
+    graphics::title(x$title, outer = TRUE, line = -2)
+
     graphics::hist(
-      input_data$residual,
+      if (nrow(input_data) > 0) input_data$residual else  0,
       xlim = residual_limits,
-      main = "Histogram of residuals",
+      main = NULL,
       xlab = "Residual (mg/L)"
     )
 
     graphics::plot(
       function(pH) coefs["x3"] * pH^3 + coefs["x2"] * pH^2 + coefs["x1"] * pH,
       xlim = c(4, 8),
+      ylim = if (is.na(coefs["x3"] || is.na(coefs["x2"] || is.na(coefs["x1"])))) c(0, 1) else NULL,
       main = "Langmuir coefficient",
       xlab = "pH", ylab = "a (mg DOC/mmol dose)"
     )
+
   })
 
   invisible(x)
@@ -204,10 +243,16 @@ plot.edwards_fit <- function(x, ...) {
 evaluate_edwards_fit <- function(known, predicted) {
   residuals <- predicted - known
   n_obs <- sum(is.finite(residuals))
+  r2 <- if (n_obs >= 2) {
+    stats::cor(predicted, known, method = "pearson", use = "pairwise.complete.obs")
+  } else {
+    NA_real_
+  }
 
   tibble::tibble(
-    r.squared = stats::cor(predicted, known, method = "pearson", use = "pairwise.complete.obs"),
+    r.squared = r2,
     RMSE = sqrt(mean(residuals^2, na.rm = TRUE)),
+    n.obs = n_obs,
     # number of coefs = 7
     df.residual = n_obs - 7,
     # deviance is the sum of the squared residuals

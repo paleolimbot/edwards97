@@ -2,45 +2,51 @@
 % Please edit documentation in R/fit.R
 \name{fit_edwards_optim}
 \alias{fit_edwards_optim}
+\alias{fit_edwards_coefs}
 \alias{coef.edwards_fit_optim}
-\alias{predict.edwards_fit}
-\alias{fitted.edwards_fit}
-\alias{residuals.edwards_fit}
-\alias{tidy.edwards_fit}
-\alias{glance.edwards_fit}
-\alias{print.edwards_fit}
-\alias{plot.edwards_fit}
+\alias{coef.edwards_fit_coefs}
+\alias{predict.edwards_fit_base}
+\alias{fitted.edwards_fit_base}
+\alias{residuals.edwards_fit_base}
+\alias{tidy.edwards_fit_base}
+\alias{glance.edwards_fit_base}
+\alias{print.edwards_fit_base}
+\alias{plot.edwards_fit_base}
 \title{Fit Empirical Coefficients}
 \usage{
 fit_edwards_optim(data, initial_coefs = edwards_coefs(),
   optim_params = list())
 
+fit_edwards_coefs(coefs = edwards_coefs(), data = edwards_data("NA"))
+
 \method{coef}{edwards_fit_optim}(object, ...)
 
-\method{predict}{edwards_fit}(object, newdata = NULL, ...)
+\method{coef}{edwards_fit_coefs}(object, ...)
 
-\method{fitted}{edwards_fit}(object, ...)
+\method{predict}{edwards_fit_base}(object, newdata = NULL, ...)
 
-\method{residuals}{edwards_fit}(object, ...)
+\method{fitted}{edwards_fit_base}(object, ...)
 
-\method{tidy}{edwards_fit}(x, ...)
+\method{residuals}{edwards_fit_base}(object, ...)
 
-\method{glance}{edwards_fit}(x, ...)
+\method{tidy}{edwards_fit_base}(x, ...)
 
-\method{print}{edwards_fit}(x, ...)
+\method{glance}{edwards_fit_base}(x, ...)
 
-\method{plot}{edwards_fit}(x, ...)
+\method{print}{edwards_fit_base}(x, ...)
+
+\method{plot}{edwards_fit_base}(x, ...)
 }
 \arguments{
 \item{data}{A data frame with columns
 \code{DOC} (mg/L), \code{dose} (mmol/L), \code{pH} (pH units), \code{UV254} (1/cm), and
 \code{DOC_final} (mg/L). See \code{\link[=coagulate]{coagulate()}} for more information.}
 
-\item{initial_coefs}{A set of initial coefficients from which to
+\item{optim_params}{Additional arguments to be passed to \code{\link[stats:optim]{stats::optim()}}.}
+
+\item{coefs, initial_coefs}{A set of initial coefficients from which to
 start the optimisation. Most usefully one of the coefficient
 sets returned by \code{\link[=edwards_coefs]{edwards_coefs()}}.}
-
-\item{optim_params}{Additional arguments to be passed to \code{\link[stats:optim]{stats::optim()}}.}
 
 \item{object, x}{A fit objected created with \code{\link[=fit_edwards_optim]{fit_edwards_optim()}}.}
 

@@ -2,12 +2,21 @@
 % Please edit documentation in R/coefs.R
 \name{edwards_coefs}
 \alias{edwards_coefs}
+\alias{edwards_data}
+\alias{fit_edwards}
 \title{Coagulation coefficients}
 \usage{
-edwards_coefs(type = c("alum", "NA"))
+edwards_coefs(type = c("General-Low DOC", "Fe", "Al", "General-Fe",
+  "General-Al", "NA"))
+
+edwards_data(type = c("General-Low DOC", "Fe", "Al", "General-Fe",
+  "General-Al", "NA"))
+
+fit_edwards(type = c("General-Low DOC", "Fe", "Al", "General-Fe",
+  "General-Al", "NA"))
 }
 \arguments{
-\item{type}{Currently only "alum" is allowed.}
+\item{type}{One of "General-Low DOC", "Fe", "Al", "General-Fe", "General-Al", or "NA".}
 }
 \value{
 A named vector of empirical coefficients to be used in
@@ -19,6 +28,11 @@ These are coefficients intended for general use. Use
 for a specific source water.
 }
 \examples{
-edwards_coefs("alum")
+edwards_coefs()
 
+}
+\references{
+Edwards, M. 1997. Predicting DOC removal during enhanced coagulation.
+Journal - American Water Works Association, 89: 78–89.
+https://doi.org/10.1002/j.1551-8833.1997.tb08229.x
 }
