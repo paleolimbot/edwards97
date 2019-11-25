@@ -49,9 +49,9 @@ print(fit)
 #> <edwards_fit_optim>
 #>   Fit optimised for `fit_data_alum`
 #>   Coefficients:
-#>     x3 = 5.21, x2 = -76.7, x1 = 288, K1 = -0.0057, K2 = -0.157, b = 0.0722, root = -1
+#>     x3 = 5.22, x2 = -76.2, x1 = 282, K1 = -0.0328, K2 = 0.264, b = 0.0823, root = -1
 #>   Performance:
-#>     r² = 0.954, RMSE = 0.948 mg/L, number of finite observations = 500
+#>     r² = 0.953, RMSE = 0.959 mg/L, number of finite observations = 500
 #>   Input data:
 #>       DOC             dose              pH            UV254       
 #>  Min.   : 1.80   Min.   :0.0084   Min.   :4.500   Min.   :0.0260  
@@ -61,14 +61,14 @@ print(fit)
 #>  3rd Qu.: 6.70   3rd Qu.:0.3543   3rd Qu.:6.955   3rd Qu.:0.2470  
 #>  Max.   :26.50   Max.   :1.5152   Max.   :7.900   Max.   :1.3550  
 #>  NA's   :629     NA's   :629      NA's   :629     NA's   :629     
-#>    DOC_final     
-#>  Min.   : 1.030  
-#>  1st Qu.: 1.968  
-#>  Median : 2.700  
-#>  Mean   : 3.793  
-#>  3rd Qu.: 4.025  
-#>  Max.   :26.610  
-#>  NA's   :629
+#>    DOC_final       Predictions       Langmuir a     Sorbable DOC (%)
+#>  Min.   : 1.030   Min.   : 0.683   Min.   : 23.94   Min.   :78.25   
+#>  1st Qu.: 1.968   1st Qu.: 1.874   1st Qu.: 28.63   1st Qu.:80.88   
+#>  Median : 2.700   Median : 2.691   Median : 43.43   Median :83.25   
+#>  Mean   : 3.793   Mean   : 3.732   Mean   : 58.28   Mean   :83.67   
+#>  3rd Qu.: 4.025   3rd Qu.: 4.353   3rd Qu.: 87.19   3rd Qu.:85.40   
+#>  Max.   :26.610   Max.   :19.820   Max.   :199.74   Max.   :92.41   
+#>  NA's   :629      NA's   :629      NA's   :629      NA's   :629
 plot(fit)
 ```
 

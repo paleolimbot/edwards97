@@ -52,7 +52,6 @@ fit <- fit_edwards_optim(fit_data_alum, initial_coefs = edwards_coefs("Al"))
 # view fit results
 print(fit)
 plot(fit)
-
 ```
 
 ## References

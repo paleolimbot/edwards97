@@ -24,8 +24,8 @@ Useful links:
 
 Authors:
 \itemize{
-  \item William Raseman
   \item Benjamin Trueman (0000-0002-1539-3092)
+  \item William Raseman
 }
 
 }

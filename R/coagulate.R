@@ -64,6 +64,7 @@ coagulate_base <- function(DOC, dose, pH, UV254, K1, K2, x1, x2, x3, b, root = -
   dose[dose == 0] <- NA_real_
 
   SUVA <- 100 * UV254 / DOC
+  non_sorbable_DOC <- DOC * (K1 * SUVA + K2)
   S <- 1 - SUVA * K1 - K2
   a <- pH^3 * x3 + pH^2 * x2 + pH * x1
 
@@ -72,13 +73,17 @@ coagulate_base <- function(DOC, dose, pH, UV254, K1, K2, x1, x2, x3, b, root = -
   denominator <- 2 * (-b)
 
   DOC_final <- (first_term + root * sqrt_term) / denominator
-  DOC_final
+  DOC_final + non_sorbable_DOC
+}
+
+coag_non_sorbable_DOC <- function(DOC, UV254, K1, K2) {
+  SUVA <- 100 * UV254 / DOC
+  fraction_non_sorbable <- K1 * SUVA + K2
+  fraction_non_sorbable * DOC
 }
 
 coag_sorbable_DOC <- function(DOC, UV254, K1, K2) {
-  SUVA <- 100 * UV254 / DOC
-  fraction_non_sorbable <- K1 * SUVA + K2
-  (1 - fraction_non_sorbable) * DOC
+  DOC - coag_non_sorbable_DOC(DOC, UV254, K1, K2)
 }
 
 coag_langmuir_a <- function(pH, x3, x2, x1) {
