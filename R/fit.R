@@ -166,19 +166,20 @@ plot.edwards_fit <- function(x, ...) {
   input_data <- x$data[c("DOC", "dose", "pH", "UV254", "DOC_final")]
   input_data$DOC_final_predicted <- stats::predict(x)
   input_data$residual <- stats::residuals(x)
+  coefs <- stats::coef(x)
 
   limits <- range(c(input_data$DOC_final, input_data$DOC_final_predicted), na.rm = TRUE)
   max_residual <- max(abs(input_data$residual), na.rm = TRUE)
   residual_limits <- c(-max_residual, max_residual)
 
-  withr::with_par(list(mfrow = c(1, 2)), {
+  withr::with_par(list(mfrow = c(2, 2)), {
     graphics::plot(
       input_data$DOC_final,
       input_data$DOC_final_predicted,
       xlim = limits, ylim = limits,
       xlab = "Final DOC (measured)",
       ylab = "Final DOC (predicted)",
-      main = NULL
+      main = "Predictions"
     )
     graphics::abline(0, 1, lty = 2, col = grDevices::rgb(0, 0, 0, alpha = 0.7))
 
@@ -186,7 +187,14 @@ plot.edwards_fit <- function(x, ...) {
       input_data$residual,
       xlim = residual_limits,
       main = "Histogram of residuals",
-      xlab = NULL
+      xlab = "Residual (mg/L)"
+    )
+
+    graphics::plot(
+      function(pH) coefs["x3"] * pH^3 + coefs["x2"] * pH^2 + coefs["x1"] * pH,
+      xlim = c(4, 8),
+      main = "Langmuir coefficient",
+      xlab = "pH", ylab = "a (mg DOC/mmol dose)"
     )
   })
 
