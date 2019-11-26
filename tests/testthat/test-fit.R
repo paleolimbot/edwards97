@@ -51,3 +51,8 @@ test_that("edwards_fit_coefs() works without data", {
   expect_output(expect_identical(print(fit), fit), "<edwards_fit_coefs>")
   expect_identical(plot(fit), fit)
 })
+
+test_that("coagulate_grid() works as expected", {
+  grid <- coagulate_grid(fit_edwards("Low DOC"), DOC = 10, UV254 = 1)
+  expect_true(all(!is.na(grid$DOC_final)))
+})

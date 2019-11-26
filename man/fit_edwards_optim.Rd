@@ -6,6 +6,7 @@
 \alias{coef.edwards_fit_optim}
 \alias{coef.edwards_fit_coefs}
 \alias{predict.edwards_fit_base}
+\alias{coagulate_grid}
 \alias{fitted.edwards_fit_base}
 \alias{residuals.edwards_fit_base}
 \alias{tidy.edwards_fit_base}
@@ -24,6 +25,9 @@ fit_edwards_coefs(coefs, data = edwards_data("empty"))
 \method{coef}{edwards_fit_coefs}(object, ...)
 
 \method{predict}{edwards_fit_base}(object, newdata = NULL, ...)
+
+coagulate_grid(object, DOC, UV254, dose = seq(0.01, 2, length.out = 50),
+  pH = seq(5, 8, length.out = 50))
 
 \method{fitted}{edwards_fit_base}(object, ...)
 
@@ -55,6 +59,15 @@ sets returned by \code{\link[=edwards_coefs]{edwards_coefs()}}.}
 \item{newdata}{A data frame with columns
 \code{DOC} (mg/L), \code{dose} (mmol/L), \code{pH} (pH units), and \code{UV254} (1/cm). If
 omitted, the data used to fit the model is used.}
+
+\item{DOC}{The initial DOC concentration (mg/L).}
+
+\item{UV254}{The absorbance of UV254 (1/cm). With \code{DOC},
+used to calculate SUVA.}
+
+\item{dose}{The coagulant dose (mmol/L).}
+
+\item{pH}{The pH of coagulation.}
 }
 \value{
 An S3 of type "edwards_fit_optim" with components:

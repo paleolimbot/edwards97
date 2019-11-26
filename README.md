@@ -74,6 +74,25 @@ plot(fit)
 
 <img src="man/figures/README-example-1.png" width="100%" />
 
+Using the fit, you can make predictions about unknown inputs:
+
+``` r
+grid <- coagulate_grid(fit, DOC = c(4, 8), UV254 = c(0.2, 0.4)) %>% 
+  mutate(label = glue::glue("DOC: {DOC} mg/L, UV254: {UV254} 1/cm"))
+
+diminishing_returns <- grid %>% 
+  group_by(label, pH) %>% 
+  summarise(dose = dose_of_diminishing_returns(dose, DOC_final, threshold = 0.3 / 10))
+
+ggplot(grid, aes(x = dose, y = pH)) +
+  geom_raster(aes(fill = DOC_final)) +
+  geom_path(data = diminishing_returns, col = "red", size = 1) +
+  facet_wrap(vars(label)) +
+  coord_cartesian(expand = FALSE)
+```
+
+<img src="man/figures/README-diminishing-returns-1.png" width="100%" />
+
 ## References
 
 Edwards, M. 1997. Predicting DOC removal during enhanced coagulation.

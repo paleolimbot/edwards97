@@ -9,6 +9,7 @@
 #' the optimal coefficients given a test set of known initial
 #' values (DOC)
 #'
+#' @inheritParams coagulate
 #' @param data A data frame with columns
 #'   `DOC` (mg/L), `dose` (mmol/L), `pH` (pH units), `UV254` (1/cm), and
 #'   `DOC_final` (mg/L). See [coagulate()] for more information.
@@ -111,6 +112,22 @@ predict.edwards_fit_base <- function(object, newdata = NULL, ...) {
   }
 
   coagulate(newdata, coef(object))
+}
+
+#' @rdname fit_edwards_optim
+#' @export
+coagulate_grid <- function(object, DOC, UV254, dose = seq(0.01, 2, length.out = 50),
+                           pH = seq(5, 8, length.out = 50)) {
+  data <- expand.grid(
+    DOC = DOC,
+    UV254 = UV254,
+    dose = dose,
+    pH = pH,
+    stringsAsFactors = FALSE
+  )
+
+  data$DOC_final <- predict(object, newdata = data)
+  tibble::as_tibble(data)
 }
 
 #' @importFrom stats fitted

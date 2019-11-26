@@ -15,7 +15,12 @@ test_that("edwards_coefs works for all types", {
 })
 
 test_that("edwards fits produce reasonable predictions", {
+  # produces visual output
   for (type in edwards_coef_types()) {
     expect_is(plot(fit_edwards(type)), "edwards_fit")
   }
+
+  # also makes sure coefficients/prediction is stable
+  expect_equal(broom::glance(fit_edwards("Low DOC"))$RMSE, 0.426914409821377)
+  expect_equal(broom::glance(fit_edwards("General-Al"))$RMSE, 1.33868850822505)
 })
