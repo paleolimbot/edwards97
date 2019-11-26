@@ -15,7 +15,7 @@
 \alias{plot.edwards_fit_base}
 \title{Fit Empirical Coefficients}
 \usage{
-fit_edwards_optim(data, initial_coefs = edwards_coefs(),
+fit_edwards_optim(data, initial_coefs = edwards_coefs("Al"),
   optim_params = list())
 
 fit_edwards_coefs(coefs, data = edwards_data("empty"))

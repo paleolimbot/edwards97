@@ -31,7 +31,7 @@
 #'
 #' @export
 #'
-fit_edwards_optim <- function(data, initial_coefs = edwards_coefs(), optim_params = list()) {
+fit_edwards_optim <- function(data, initial_coefs = edwards_coefs("Al"), optim_params = list()) {
 
   data_label <- rlang::quo_label(rlang::enquo(data))
 
