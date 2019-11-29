@@ -8,7 +8,7 @@ Authors@R: c(
            comment = c(ORCID = "0000-0002-9415-4582")
     ),
     person("Benjamin", "Trueman", role = "aut", comment = c(ORCID = "0000-0002-1539-3092")),
-    person("William", "Raseman", role = "aut")
+    person("William", "Raseman", role = "aut", comment = c(ORCID = "0000-0001-5946-8888"))
   )
 Maintainer: Dewey Dunnington <dewey@fishandwhistle.net>
 Description: Implements the Edwards (1997) <doi:10.1002/j.1551-8833.1997.tb08229.x>
