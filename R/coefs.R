@@ -80,7 +80,7 @@ edwards_data <- function(type) {
 
   data_base <- data_base[!alum_outside_pH & !ferric_outside_pH & !low_removal & !zero_dose, ]
 
-  switch(
+  result <- switch(
     type,
     "General-Fe" = ,
     "Fe" = data_base[grepl("^Ferric", data_base$coagulant), ],
@@ -90,6 +90,8 @@ edwards_data <- function(type) {
     # default: empty data
     data_base[numeric(0), ]
   )
+
+  result[!is.na(result$coagulant), ]
 }
 
 #' @rdname edwards_coefs
