@@ -5,8 +5,12 @@
 \alias{dose_for_criterion}
 \title{Calculate the dose of diminishing return}
 \usage{
-dose_of_diminishing_returns(dose, DOC_final, molar_mass = 297,
-  threshold = 0.3/10)
+dose_of_diminishing_returns(
+  dose,
+  DOC_final,
+  molar_mass = 297,
+  threshold = 0.3/10
+)
 
 dose_for_criterion(dose, DOC_final, criterion)
 }

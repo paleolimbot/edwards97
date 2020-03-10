@@ -15,8 +15,11 @@
 \alias{plot.edwards_fit_base}
 \title{Fit Empirical Coefficients}
 \usage{
-fit_edwards_optim(data, initial_coefs = edwards_coefs("Al"),
-  optim_params = list())
+fit_edwards_optim(
+  data,
+  initial_coefs = edwards_coefs("Al"),
+  optim_params = list()
+)
 
 fit_edwards_coefs(coefs, data = edwards_data("empty"))
 
@@ -26,8 +29,13 @@ fit_edwards_coefs(coefs, data = edwards_data("empty"))
 
 \method{predict}{edwards_fit_base}(object, newdata = NULL, ...)
 
-coagulate_grid(object, DOC, UV254, dose = seq(0.01, 2, length.out = 50),
-  pH = seq(5, 8, length.out = 50))
+coagulate_grid(
+  object,
+  DOC,
+  UV254,
+  dose = seq(0.01, 2, length.out = 50),
+  pH = seq(5, 8, length.out = 50)
+)
 
 \method{fitted}{edwards_fit_base}(object, ...)
 

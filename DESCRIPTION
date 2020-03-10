@@ -1,6 +1,6 @@
 Package: edwards97
-Title: Implementation of a Langmuir Semiempirical Coagulation Model
-Version: 0.0.0.9000
+Title: Implementation of a Langmuir Semi-Empirical Coagulation Model
+Version: 0.1.0
 Authors@R: c(
     person("Dewey", "Dunnington",
            email = "dewey@fishandwhistle.net", 
@@ -12,14 +12,14 @@ Authors@R: c(
   )
 Maintainer: Dewey Dunnington <dewey@fishandwhistle.net>
 Description: Implements the Edwards (1997) <doi:10.1002/j.1551-8833.1997.tb08229.x>
-    Langmuir-based semiempirical coagulation model, which predicts the concentration
+    Langmuir-based semi-empirical coagulation model, which predicts the concentration
     of organic carbon remaining in water after treatment with an Al- or Fe-based
     coagulant. Data and methods are provided to optimise empirical coefficients.
 Depends: R (>= 3.6.0)
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 6.1.1
+RoxygenNote: 7.0.2
 Roxygen: list(markdown = TRUE)
 URL: https://paleolimbot.github.io/edwards97/, https://github.com/paleolimbot/edwards97
 BugReports: https://github.com/paleolimbot/edwards97/issues

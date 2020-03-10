@@ -4,28 +4,29 @@
 \name{edwards97-package}
 \alias{edwards97}
 \alias{edwards97-package}
-\title{edwards97: Implementation of a Langmuir Semiempirical Coagulation Model}
+\title{edwards97: Implementation of a Langmuir Semi-Empirical Coagulation Model}
 \description{
 Implements the Edwards (1997) <doi:10.1002/j.1551-8833.1997.tb08229.x>
-    Langmuir-based semiempirical coagulation model, which predicts the concentration
+    Langmuir-based semi-empirical coagulation model, which predicts the concentration
     of organic carbon remaining in water after treatment with an Al- or Fe-based
     coagulant. Data and methods are provided to optimise empirical coefficients.
 }
 \seealso{
 Useful links:
 \itemize{
+  \item \url{https://paleolimbot.github.io/edwards97/}
   \item \url{https://github.com/paleolimbot/edwards97}
   \item Report bugs at \url{https://github.com/paleolimbot/edwards97/issues}
 }
 
 }
 \author{
-\strong{Maintainer}: Dewey Dunnington \email{dewey@fishandwhistle.net} (0000-0002-9415-4582)
+\strong{Maintainer}: Dewey Dunnington \email{dewey@fishandwhistle.net} (\href{https://orcid.org/0000-0002-9415-4582}{ORCID})
 
 Authors:
 \itemize{
-  \item Benjamin Trueman (0000-0002-1539-3092)
-  \item William Raseman (0000-0001-5946-8888)
+  \item Benjamin Trueman (\href{https://orcid.org/0000-0002-1539-3092}{ORCID})
+  \item William Raseman (\href{https://orcid.org/0000-0001-5946-8888}{ORCID})
 }
 
 }

@@ -40,7 +40,7 @@ A vector of predicted organic carbon concentrations (in mg/L) following
 coagulation.
 }
 \description{
-The Edwards (1997) model is a Langmuir‐based semiempirical model designed to predict
+The Edwards (1997) model is a Langmuir-based semiempirical model designed to predict
 OC removal during alum coagulation. The model is on a non-linear function
 derived from physical relationships, primarily the process of
 Langmuir sorptive removal (Tipping 1981, Jekyl 1986).
