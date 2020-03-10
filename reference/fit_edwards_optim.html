@@ -75,7 +75,7 @@ values (DOC)" />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">edwards97</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">0.0.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
       </span>
     </div>
 
@@ -126,8 +126,11 @@ the optimal coefficients given a test set of known initial
 values (DOC)</p>
     </div>
 
-    <pre class="usage"><span class='fu'>fit_edwards_optim</span>(<span class='no'>data</span>, <span class='kw'>initial_coefs</span> <span class='kw'>=</span> <span class='fu'><a href='edwards_coefs.html'>edwards_coefs</a></span>(<span class='st'>"Al"</span>),
-  <span class='kw'>optim_params</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>())
+    <pre class="usage"><span class='fu'>fit_edwards_optim</span>(
+  <span class='no'>data</span>,
+  <span class='kw'>initial_coefs</span> <span class='kw'>=</span> <span class='fu'><a href='edwards_coefs.html'>edwards_coefs</a></span>(<span class='st'>"Al"</span>),
+  <span class='kw'>optim_params</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>()
+)
 
 <span class='fu'>fit_edwards_coefs</span>(<span class='no'>coefs</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='fu'><a href='edwards_coefs.html'>edwards_data</a></span>(<span class='st'>"empty"</span>))
 
@@ -140,8 +143,13 @@ values (DOC)</p>
 <span class='co'># S3 method for edwards_fit_base</span>
 <span class='fu'><a href='https://rdrr.io/r/stats/predict.html'>predict</a></span>(<span class='no'>object</span>, <span class='kw'>newdata</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)
 
-<span class='fu'>coagulate_grid</span>(<span class='no'>object</span>, <span class='no'>DOC</span>, <span class='no'>UV254</span>, <span class='kw'>dose</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span>(<span class='fl'>0.01</span>, <span class='fl'>2</span>, <span class='kw'>length.out</span> <span class='kw'>=</span> <span class='fl'>50</span>),
-  <span class='kw'>pH</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span>(<span class='fl'>5</span>, <span class='fl'>8</span>, <span class='kw'>length.out</span> <span class='kw'>=</span> <span class='fl'>50</span>))
+<span class='fu'>coagulate_grid</span>(
+  <span class='no'>object</span>,
+  <span class='no'>DOC</span>,
+  <span class='no'>UV254</span>,
+  <span class='kw'>dose</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span>(<span class='fl'>0.01</span>, <span class='fl'>2</span>, <span class='kw'>length.out</span> <span class='kw'>=</span> <span class='fl'>50</span>),
+  <span class='kw'>pH</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span>(<span class='fl'>5</span>, <span class='fl'>8</span>, <span class='kw'>length.out</span> <span class='kw'>=</span> <span class='fl'>50</span>)
+)
 
 <span class='co'># S3 method for edwards_fit_base</span>
 <span class='fu'><a href='https://rdrr.io/r/stats/fitted.values.html'>fitted</a></span>(<span class='no'>object</span>, <span class='no'>...</span>)
