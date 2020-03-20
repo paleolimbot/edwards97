@@ -4,7 +4,7 @@
 \name{edwards97-package}
 \alias{edwards97}
 \alias{edwards97-package}
-\title{edwards97: Implementation of a Langmuir Semi-Empirical Coagulation Model}
+\title{edwards97: Langmuir Semi-Empirical Coagulation Model}
 \description{
 Implements the Edwards (1997) <doi:10.1002/j.1551-8833.1997.tb08229.x>
     Langmuir-based semi-empirical coagulation model, which predicts the concentration
@@ -27,6 +27,12 @@ Authors:
 \itemize{
   \item Benjamin Trueman (\href{https://orcid.org/0000-0002-1539-3092}{ORCID})
   \item William Raseman (\href{https://orcid.org/0000-0001-5946-8888}{ORCID})
+}
+
+Other contributors:
+\itemize{
+  \item Marc Edwards [contributor]
+  \item Tai Tseng [contributor]
 }
 
 }
