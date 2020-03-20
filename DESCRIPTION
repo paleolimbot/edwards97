@@ -1,5 +1,5 @@
 Package: edwards97
-Title: Implementation of a Langmuir Semi-Empirical Coagulation Model
+Title: Langmuir Semi-Empirical Coagulation Model
 Version: 0.1.0
 Authors@R: c(
     person("Dewey", "Dunnington",
@@ -8,7 +8,9 @@ Authors@R: c(
            comment = c(ORCID = "0000-0002-9415-4582")
     ),
     person("Benjamin", "Trueman", role = "aut", comment = c(ORCID = "0000-0002-1539-3092")),
-    person("William", "Raseman", role = "aut", comment = c(ORCID = "0000-0001-5946-8888"))
+    person("William", "Raseman", role = "aut", comment = c(ORCID = "0000-0001-5946-8888")),
+    person("Marc", "Edwards", role = "ctb"),
+    person("Tai" "Tseng", role = "ctb")
   )
 Maintainer: Dewey Dunnington <dewey@fishandwhistle.net>
 Description: Implements the Edwards (1997) <doi:10.1002/j.1551-8833.1997.tb08229.x>
