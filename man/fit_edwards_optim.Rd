@@ -73,7 +73,7 @@ omitted, the data used to fit the model is used.}
 \item{UV254}{The absorbance of UV254 (1/cm). With \code{DOC},
 used to calculate SUVA.}
 
-\item{dose}{The coagulant dose (mmol/L).}
+\item{dose}{The coagulant metal concentration (Al3+ or Fe3+) in mmol/L.}
 
 \item{pH}{The pH of coagulation.}
 }

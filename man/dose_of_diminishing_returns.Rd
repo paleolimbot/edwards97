@@ -15,7 +15,7 @@ dose_of_diminishing_returns(
 dose_for_criterion(dose, DOC_final, criterion)
 }
 \arguments{
-\item{dose}{The coagulant dose (mmol/L).}
+\item{dose}{The coagulant metal concentration (Al3+ or Fe3+) in mmol/L.}
 
 \item{DOC_final}{The final DOC concentration, probably modeled using \code{\link[=fit_edwards_optim]{fit_edwards_optim()}}
 or \code{\link[=fit_edwards]{fit_edwards()}} and \code{\link[=coagulate_grid]{coagulate_grid()}}.}
