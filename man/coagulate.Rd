@@ -17,7 +17,7 @@ containing elements \code{K1}, \code{K2}, \code{x1}, \code{x2}, \code{x3}, \code
 
 \item{DOC}{The initial DOC concentration (mg/L).}
 
-\item{dose}{The coagulant dose (mmol/L).}
+\item{dose}{The coagulant metal concentration (Al3+ or Fe3+) in mmol/L.}
 
 \item{pH}{The pH of coagulation.}
 

@@ -10,7 +10,7 @@
 #'   containing elements `K1`, `K2`, `x1`, `x2`, `x3`, `b` and `root`.
 #' @param data A data frame containing columns `DOC`, `dose`, `pH`, and `UV254`.
 #' @param DOC The initial DOC concentration (mg/L).
-#' @param dose The coagulant dose (mmol/L).
+#' @param dose The coagulant metal concentration (Al3+ or Fe3+) in mmol/L.
 #' @param pH The pH of coagulation.
 #' @param UV254 The absorbance of UV254 (1/cm). With `DOC`,
 #'   used to calculate SUVA.
