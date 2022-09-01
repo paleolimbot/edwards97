@@ -174,7 +174,7 @@ print.edwards_fit_base <- function(x, ...) {
   )
 
   glanced <- broom::glance(x)[c("r.squared", "RMSE", "n.obs")]
-  names(glanced) <- c("r\u00B2", "RMSE", "number of finite observations")
+  names(glanced) <- c("r^2", "RMSE", "number of finite observations")
   glanced_format <- unlist(lapply(glanced, format, digits = 3, trim = TRUE))
   glanced_units <- c("", " mg/L", "")
   glanced_text <- paste0(

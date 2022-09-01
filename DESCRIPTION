@@ -33,5 +33,6 @@ Imports:
     withr,
     glue
 Suggests: 
-    testthat (>= 2.1.0),
+    testthat (>= 3.0.0),
     covr
+Config/testthat/edition: 3

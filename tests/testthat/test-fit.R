@@ -9,7 +9,7 @@ test_that("edwards_fit_optim works", {
 
   # check fit methods
   expect_named(coef(fit), c("x3", "x2", "x1", "K1", "K2", "b", "root"))
-  expect_is(coef(fit), "numeric")
+  expect_vector(coef(fit), double())
   expect_identical(fitted(fit), predict(fit))
   expect_named(broom::tidy(fit), c("term", "estimate"))
   expect_named(broom::glance(fit), c("fit_method", "r.squared", "RMSE", "n.obs", "df.residual", "deviance"))
@@ -31,7 +31,7 @@ test_that("edwards_fit_coefs() works with data", {
 
   # check fit methods
   expect_named(coef(fit), c("x3", "x2", "x1", "K1", "K2", "b", "root"))
-  expect_is(coef(fit), "numeric")
+  expect_vector(coef(fit), double())
   expect_identical(fitted(fit), predict(fit))
   expect_named(broom::tidy(fit), c("term", "estimate"))
   expect_named(broom::glance(fit), c("fit_method", "r.squared", "RMSE", "n.obs", "df.residual", "deviance"))
@@ -44,7 +44,7 @@ test_that("edwards_fit_coefs() works without data", {
 
   # check fit methods
   expect_named(coef(fit), c("x3", "x2", "x1", "K1", "K2", "b", "root"))
-  expect_is(coef(fit), "numeric")
+  expect_vector(coef(fit), double())
   expect_identical(fitted(fit), predict(fit))
   expect_named(broom::tidy(fit), c("term", "estimate"))
   expect_named(broom::glance(fit), c("fit_method", "r.squared", "RMSE", "n.obs", "df.residual", "deviance"))

@@ -1,14 +1,14 @@
 
 test_that("edwards_coefs works for all types", {
   for (type in edwards_coef_types()) {
-    expect_is(edwards_coefs(!!type), "numeric")
+    expect_vector(edwards_coefs(!!type), double())
     expect_identical(
       names(edwards_coefs(!!type)),
       c("x3", "x2", "x1", "K1", "K2", "b", "root")
     )
-    expect_is(edwards_data(!!type), "data.frame")
+    expect_s3_class(edwards_data(!!type), "data.frame")
     expect_true(all(!is.na(edwards_data(!!type)$coagulant)))
-    expect_is(fit_edwards(!!type), "edwards_fit")
+    expect_s3_class(fit_edwards(!!type), "edwards_fit")
     expect_identical(nrow(edwards_data(!!type)), length(residuals(fit_edwards(!!type))))
   }
 
@@ -18,7 +18,7 @@ test_that("edwards_coefs works for all types", {
 test_that("edwards fits produce reasonable predictions", {
   # produces visual output
   for (type in edwards_coef_types()) {
-    expect_is(plot(fit_edwards(type)), "edwards_fit")
+    expect_s3_class(plot(fit_edwards(type)), "edwards_fit")
   }
 
   # also makes sure coefficients/prediction is stable
