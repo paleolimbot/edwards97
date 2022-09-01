@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>/authors.html</loc>
+  </url>
+  <url>
+    <loc>/index.html</loc>
+  </url>
+  <url>
+    <loc>/reference/coagulate.html</loc>
+  </url>
+  <url>
+    <loc>/reference/dose_of_diminishing_returns.html</loc>
+  </url>
+  <url>
+    <loc>/reference/edwards97-package.html</loc>
+  </url>
+  <url>
+    <loc>/reference/edwards_coefs.html</loc>
+  </url>
+  <url>
+    <loc>/reference/edwards_jar_tests.html</loc>
+  </url>
+  <url>
+    <loc>/reference/fit_edwards_optim.html</loc>
+  </url>
+  <url>
+    <loc>/reference/index.html</loc>
+  </url>
+</urlset>
