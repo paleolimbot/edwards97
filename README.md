@@ -10,7 +10,7 @@ experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](h
 [![Travis build
 status](https://travis-ci.org/paleolimbot/edwards97.svg?branch=master)](https://travis-ci.org/paleolimbot/edwards97)
 [![Codecov test
-coverage](https://codecov.io/gh/paleolimbot/edwards97/branch/master/graph/badge.svg)](https://codecov.io/gh/paleolimbot/edwards97?branch=master)
+coverage](https://codecov.io/gh/paleolimbot/edwards97/branch/master/graph/badge.svg)](https://app.codecov.io/gh/paleolimbot/edwards97?branch=master)
 [![R-CMD-check](https://github.com/paleolimbot/edwards97/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/paleolimbot/edwards97/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
@@ -52,7 +52,7 @@ print(fit)
 #>   Coefficients:
 #>     x3 = 5.14, x2 = -72.4, x1 = 259, K1 = -0.107, K2 = 0.562, b = 0.0951, root = -1
 #>   Performance:
-#>     r² = 0.955, RMSE = 0.935 mg/L, number of finite observations = 500
+#>     r^2 = 0.955, RMSE = 0.935 mg/L, number of finite observations = 500
 #>   Input data:
 #>       DOC             dose                pH            UV254       
 #>  Min.   : 1.80   Min.   :0.008378   Min.   :4.500   Min.   :0.0260  

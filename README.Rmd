@@ -21,7 +21,7 @@ knitr::opts_chunk$set(
 <!-- badges: start -->
 [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
 [![Travis build status](https://travis-ci.org/paleolimbot/edwards97.svg?branch=master)](https://travis-ci.org/paleolimbot/edwards97)
-[![Codecov test coverage](https://codecov.io/gh/paleolimbot/edwards97/branch/master/graph/badge.svg)](https://codecov.io/gh/paleolimbot/edwards97?branch=master)
+[![Codecov test coverage](https://codecov.io/gh/paleolimbot/edwards97/branch/master/graph/badge.svg)](https://app.codecov.io/gh/paleolimbot/edwards97?branch=master)
 [![R-CMD-check](https://github.com/paleolimbot/edwards97/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/paleolimbot/edwards97/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
