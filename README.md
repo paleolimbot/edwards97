@@ -11,6 +11,7 @@ experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](h
 status](https://travis-ci.org/paleolimbot/edwards97.svg?branch=master)](https://travis-ci.org/paleolimbot/edwards97)
 [![Codecov test
 coverage](https://codecov.io/gh/paleolimbot/edwards97/branch/master/graph/badge.svg)](https://codecov.io/gh/paleolimbot/edwards97?branch=master)
+[![R-CMD-check](https://github.com/paleolimbot/edwards97/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/paleolimbot/edwards97/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
 The goal of edwards97 is to implement the Edwards (1997) Langmuir-based
@@ -49,26 +50,24 @@ print(fit)
 #> <edwards_fit_optim>
 #>   Fit optimised for `fit_data_alum`
 #>   Coefficients:
-#>     x3 = 5.22, x2 = -76.2, x1 = 282, K1 = -0.0328, K2 = 0.264, b = 0.0823, root = -1
+#>     x3 = 5.14, x2 = -72.4, x1 = 259, K1 = -0.107, K2 = 0.562, b = 0.0951, root = -1
 #>   Performance:
-#>     r² = 0.953, RMSE = 0.959 mg/L, number of finite observations = 500
+#>     r² = 0.955, RMSE = 0.935 mg/L, number of finite observations = 500
 #>   Input data:
-#>       DOC             dose              pH            UV254       
-#>  Min.   : 1.80   Min.   :0.0084   Min.   :4.500   Min.   :0.0260  
-#>  1st Qu.: 2.81   1st Qu.:0.1323   1st Qu.:5.808   1st Qu.:0.0810  
-#>  Median : 3.94   Median :0.2290   Median :6.500   Median :0.1060  
-#>  Mean   : 6.36   Mean   :0.2644   Mean   :6.430   Mean   :0.2323  
-#>  3rd Qu.: 6.70   3rd Qu.:0.3543   3rd Qu.:6.955   3rd Qu.:0.2470  
-#>  Max.   :26.50   Max.   :1.5152   Max.   :7.900   Max.   :1.3550  
-#>  NA's   :629     NA's   :629      NA's   :629     NA's   :629     
+#>       DOC             dose                pH            UV254       
+#>  Min.   : 1.80   Min.   :0.008378   Min.   :4.500   Min.   :0.0260  
+#>  1st Qu.: 2.81   1st Qu.:0.132264   1st Qu.:5.808   1st Qu.:0.0810  
+#>  Median : 3.94   Median :0.228983   Median :6.500   Median :0.1060  
+#>  Mean   : 6.36   Mean   :0.264423   Mean   :6.430   Mean   :0.2323  
+#>  3rd Qu.: 6.70   3rd Qu.:0.354291   3rd Qu.:6.955   3rd Qu.:0.2470  
+#>  Max.   :26.50   Max.   :1.515151   Max.   :7.900   Max.   :1.3550  
 #>    DOC_final       Predictions       Langmuir a     Sorbable DOC (%)
-#>  Min.   : 1.030   Min.   : 0.683   Min.   : 23.94   Min.   :78.25   
-#>  1st Qu.: 1.968   1st Qu.: 1.874   1st Qu.: 28.63   1st Qu.:80.88   
-#>  Median : 2.700   Median : 2.691   Median : 43.43   Median :83.25   
-#>  Mean   : 3.793   Mean   : 3.732   Mean   : 58.28   Mean   :83.67   
-#>  3rd Qu.: 4.025   3rd Qu.: 4.353   3rd Qu.: 87.19   3rd Qu.:85.40   
-#>  Max.   :26.610   Max.   :19.820   Max.   :199.74   Max.   :92.41   
-#>  NA's   :629      NA's   :629      NA's   :629      NA's   :629
+#>  Min.   : 1.030   Min.   : 0.775   Min.   : 30.25   Min.   : 59.05  
+#>  1st Qu.: 1.968   1st Qu.: 1.984   1st Qu.: 32.92   1st Qu.: 67.62  
+#>  Median : 2.700   Median : 2.748   Median : 41.22   Median : 75.32  
+#>  Mean   : 3.793   Mean   : 3.774   Mean   : 52.58   Mean   : 76.72  
+#>  3rd Qu.: 4.025   3rd Qu.: 4.286   3rd Qu.: 70.51   3rd Qu.: 82.34  
+#>  Max.   :26.610   Max.   :20.430   Max.   :168.85   Max.   :105.16
 plot(fit)
 ```
 
@@ -83,6 +82,8 @@ grid <- coagulate_grid(fit, DOC = c(4, 8), UV254 = c(0.2, 0.4)) %>%
 diminishing_returns <- grid %>% 
   group_by(label, pH) %>% 
   summarise(dose = dose_of_diminishing_returns(dose, DOC_final, threshold = 0.3 / 10))
+#> `summarise()` has grouped output by 'label'. You can override using the
+#> `.groups` argument.
 
 ggplot(grid, aes(x = dose, y = pH)) +
   geom_raster(aes(fill = DOC_final)) +

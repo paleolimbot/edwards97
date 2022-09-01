@@ -6,10 +6,7 @@
 \alias{edwards97-package}
 \title{edwards97: Langmuir Semi-Empirical Coagulation Model}
 \description{
-Implements the Edwards (1997) <doi:10.1002/j.1551-8833.1997.tb08229.x>
-    Langmuir-based semi-empirical coagulation model, which predicts the concentration
-    of organic carbon remaining in water after treatment with an Al- or Fe-based
-    coagulant. Data and methods are provided to optimise empirical coefficients.
+Implements the Edwards (1997) \doi{10.1002/j.1551-8833.1997.tb08229.x} Langmuir-based semi-empirical coagulation model, which predicts the concentration of organic carbon remaining in water after treatment with an Al- or Fe-based coagulant. Data and methods are provided to optimise empirical coefficients.
 }
 \seealso{
 Useful links:

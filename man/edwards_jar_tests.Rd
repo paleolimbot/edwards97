@@ -4,7 +4,9 @@
 \name{edwards_jar_tests}
 \alias{edwards_jar_tests}
 \title{Example Jar Tests}
-\format{An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 1372 rows and 7 columns.}
+\format{
+An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 1372 rows and 7 columns.
+}
 \usage{
 edwards_jar_tests
 }
