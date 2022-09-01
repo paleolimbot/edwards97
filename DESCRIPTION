@@ -1,6 +1,6 @@
 Package: edwards97
 Title: Langmuir Semi-Empirical Coagulation Model
-Version: 0.1.0
+Version: 0.1.0.9000
 Authors@R: c(
     person("Dewey", "Dunnington",
            email = "dewey@fishandwhistle.net", 
